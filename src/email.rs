@@ -40,8 +40,8 @@ impl Emailer for Email {
 
 impl Email {
     fn send(request: EmailRequest) -> Result<EmailResponse, lettre::transport::smtp::Error> {
-        let template_name = request.teplate;
-        let html_template = render_template(template_name.to_string()).unwrap();
+        let html_template = render_template(&request).unwrap();
+
         let email = Message::builder()
             .from("Msk Buro <info@mskburo.ru>".parse().unwrap())
             .to(format!("Hei <{}>", request.to_email).parse().unwrap())
@@ -74,22 +74,22 @@ impl Email {
     }
 }
 
-fn render_template(template_name: String) -> Result<String, handlebars::RenderError> {
+fn render_template(request: &EmailRequest) -> Result<String, handlebars::RenderError> {
     let mut handlebars = handlebars::Handlebars::new();
     handlebars.register_template_file(
-        &template_name,
-        &format!("./templates/{}.hbs", template_name),
+        &request.teplate,
+        &format!("./templates/{}.hbs", &request.teplate),
     )?;
     handlebars.register_template_file("styles", "./templates/partials/styles.hbs")?;
     handlebars.register_template_file("base", "./templates/layouts/base.hbs")?;
 
     let data = serde_json::json!({ // TODO
-        "first_name":"hi",
-        "subject": template_name,
-        "url": ""
+        "first_name":&request.to_email,
+        "payment_id":  &request.payment_id,
+        "order_id":  &request.payment_id,
+        "url": &request.url,
     });
-
-    let content_template = handlebars.render(&template_name, &data)?;
+    let content_template = handlebars.render(&request.teplate, &data)?;
 
     Ok(content_template)
 }

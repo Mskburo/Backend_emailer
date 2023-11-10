@@ -8,7 +8,9 @@ service Emailer {
 message EmailRequest {
     string teplate  = 1;
     string to_email = 2;
-    uint32 cart_id  = 3;
+    string order_id = 3;
+    uint32 payment_id  = 4;
+    string url = 5;
 }
 message EmailResponse {
     bool successful = 1;
