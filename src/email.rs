@@ -86,7 +86,7 @@ fn render_template(request: &EmailRequest) -> Result<String, handlebars::RenderE
     let data = serde_json::json!({ // TODO
         "first_name":&request.to_email,
         "payment_id":  &request.payment_id,
-        "order_id":  &request.payment_id,
+        "order_id":  &request.description,
         "url": &request.url,
     });
     let content_template = handlebars.render(&request.teplate, &data)?;

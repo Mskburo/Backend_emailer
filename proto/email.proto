@@ -8,8 +8,8 @@ service Emailer {
 message EmailRequest {
     string teplate  = 1;
     string to_email = 2;
-    string order_id = 3;
-    uint32 payment_id  = 4;
+    string description = 3;
+    string payment_id  = 4;
     string url = 5;
 }
 message EmailResponse {
