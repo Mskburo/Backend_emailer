@@ -44,7 +44,7 @@ impl Email {
 
         let email = Message::builder()
             .from("Msk Buro <info@mskburo.ru>".parse().unwrap())
-            .to(format!("Hei <{}>", request.to_email).parse().unwrap())
+            .to(format!("User <{}>", request.to_email).parse().unwrap())
             .subject("Чек об оплате")
             .header(ContentType::TEXT_HTML)
             .body(html_template)

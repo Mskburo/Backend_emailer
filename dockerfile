@@ -24,20 +24,21 @@ RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path r
 FROM chef AS builder 
 ENV CARGO_HOME=/usr/local/cargo
 ENV SCCACHE_DIR=/usr/local/sccache
-RUN apk add musl-dev sccache protoc protobuf-dev openssl libressl-dev
 COPY Cargo.toml .
 COPY Cargo.lock .
 COPY build.rs .
 COPY ./src ./src
 COPY ./proto ./proto
-COPY ./templates ./templates
+RUN apk add musl-dev sccache protoc protobuf-dev openssl libressl-dev
 # Copy over the cached dependencies
-COPY --from=cacher /app/target/x86_64-unknown-linux-musl/ /app/target/x86_64-unknown-linux-musl/
+COPY --from=cacher /app/target/ /app/target/
 ARG SQLX_OFFLINE=true
 RUN cargo build --release --target x86_64-unknown-linux-musl --bin emailer
 
 
 FROM alpine AS runtime
 EXPOSE 50051
+RUN apk add protoc openssl
+COPY ./templates ./templates
 COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/emailer /usr/local/bin/emailer
 CMD ["/usr/local/bin/emailer"]
