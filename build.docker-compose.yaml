@@ -9,3 +9,5 @@ services:
     environment:
       - SENDER_EMAIL={SENDER_EMAIL}
       - SENDER_PASSWORD={SENDER_PASSWORD}
+    ports:
+      - '50051:50051'
