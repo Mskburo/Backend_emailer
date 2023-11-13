@@ -8,7 +8,7 @@ use tonic::transport::Server;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
-    let addr: std::net::SocketAddr = "[::1]:50051".parse()?;
+    let addr: std::net::SocketAddr = "0.0.0.0:50051".parse()?;
     let email_service = Email::default();
 
     Server::builder()
