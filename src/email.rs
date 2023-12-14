@@ -88,6 +88,11 @@ fn render_template(request: &EmailRequest) -> Result<String, handlebars::RenderE
         "payment_id":  &request.payment_id,
         "order_id":  &request.description,
         "url": &request.url,
+        "date": &request.date,
+        "time": &request.time,
+        "excursion_name": &request.excursion_name,
+        "cost": &request.cost,
+        "user_name": &request.user_name,
     });
     let content_template = handlebars.render(&request.teplate, &data)?;
 

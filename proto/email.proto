@@ -11,6 +11,11 @@ message EmailRequest {
     string description = 3;
     string payment_id  = 4;
     string url = 5;
+    string date = 6;
+    string time = 7;
+    string excursion_name = 8;
+    float  cost = 9;
+    string user_name = 10;
 }
 message EmailResponse {
     bool successful = 1;
