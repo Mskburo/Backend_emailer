@@ -16,6 +16,7 @@ message EmailRequest {
     string excursion_name = 8;
     float  cost = 9;
     string user_name = 10;
+    string meeting_info = 11;
 }
 message EmailResponse {
     bool successful = 1;

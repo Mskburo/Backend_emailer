@@ -93,6 +93,7 @@ fn render_template(request: &EmailRequest) -> Result<String, handlebars::RenderE
         "excursion_name": &request.excursion_name,
         "cost": &request.cost,
         "user_name": &request.user_name,
+        "meeting_info": &request.meeting_info,
     });
     let content_template = handlebars.render(&request.teplate, &data)?;
 
